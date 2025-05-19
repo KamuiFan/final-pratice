@@ -39,10 +39,15 @@
 ### 組員一
 - 請生成 BlockBreaker 的 Java 程式 → 產生簡陋的遊戲雛形（包含基礎碰撞邏輯、Block 消失、Paddle 移動  
 ### 組員二
-由於程式雛形為組員一生成，請先將程式解釋給我 → 將程式詳細解釋並介紹各Class
+- 由於程式雛形為組員一生成，請先將程式解釋給我 → 將程式詳細解釋並介紹各Class
   1. **BlockBreaker** :入口類別，建立一個 JFrame 視窗，並將內容面板設定為 BlockBreakerPanel。
   2. **BlockBreakerPanel (JPanel)** :遊戲的主要舞台（畫布），實作 ActionListener（計時驅動遊戲更新）及 MouseMotionListener（滑鼠控制擊球板）。
   3. **Ball**　:球的資料與行為：位置（x, y）、速度（dx, dy）、移動與繪製方法、碰撞用的邊界矩形。
   4.  **Paddle** :擊球板的資料與行為：位置、寬高常數、繪製方法、碰撞邊界。
   5.  **Block** :每一個磚塊的資料與行為：位置、尺寸常數、繪製方法、碰撞邊界。
-  6.  **Setting** :一些全域常數（視窗寬度、高度）。
+  6.  **Setting** :一些全域常數（視窗寬度、高度）。  
+- 球從側邊撞到磚塊時偶爾會產生bug → 生成改良的程式給我
+- 根據球碰到板子的位置改變球回彈的方向 → 提供修改Ball、Paddle、BlockBreakerPanel的程式
+  1. Paddle中新增handleCollision方法，利用relativeIntersectX 計算接觸點與板子相對位置
+  2. 在BlockBreakerPanel處理碰撞
+- 每次碰到板子球都會變慢 → 利用Math.round使速度維持不變
