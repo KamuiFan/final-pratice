@@ -36,4 +36,13 @@
 2. 雙擊執行或使用命令列：
 
 ## 與LLM的深度交流紀錄
-- 請生成 BlockBreaker 的 Java 程式 → 產生簡陋的遊戲雛形（包含基礎碰撞邏輯、Block 消失、Paddle 移動
+### 組員一
+- 請生成 BlockBreaker 的 Java 程式 → 產生簡陋的遊戲雛形（包含基礎碰撞邏輯、Block 消失、Paddle 移動  
+### 組員二
+由於程式雛形為組員一生成，請先將程式解釋給我 → 將程式詳細解釋並介紹各Class
+  1. **BlockBreaker** :入口類別，建立一個 JFrame 視窗，並將內容面板設定為 BlockBreakerPanel。
+  2. **BlockBreakerPanel (JPanel)** :遊戲的主要舞台（畫布），實作 ActionListener（計時驅動遊戲更新）及 MouseMotionListener（滑鼠控制擊球板）。
+  3. **Ball**　:球的資料與行為：位置（x, y）、速度（dx, dy）、移動與繪製方法、碰撞用的邊界矩形。
+  4.  **Paddle** :擊球板的資料與行為：位置、寬高常數、繪製方法、碰撞邊界。
+  5.  **Block** :每一個磚塊的資料與行為：位置、尺寸常數、繪製方法、碰撞邊界。
+  6.  **Setting** :一些全域常數（視窗寬度、高度）。
