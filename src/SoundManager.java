@@ -1,21 +1,26 @@
-
-import java.io.File;
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 
 public class SoundManager {
 
     private static Clip backgroundClip;
 
-    //播放一次性音效
+    // 播放一次性音效
     public static void playSoundEffect(String path, float volumeDb) {
         new Thread(() -> {
             try {
-                AudioInputStream ais = AudioSystem.getAudioInputStream(new File(path));
+                InputStream audioSrc = SoundManager.class.getResourceAsStream(path);
+                if (audioSrc == null) {
+                    throw new IllegalArgumentException("Resource not found: /sound/" + path);
+                }
+                InputStream bufferedIn = new BufferedInputStream(audioSrc);
+                AudioInputStream ais = AudioSystem.getAudioInputStream(bufferedIn);
                 Clip clip = AudioSystem.getClip();
                 clip.open(ais);
                 if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
                     FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                    volumeControl.setValue(volumeDb); // 直接用參數控制音量
+                    volumeControl.setValue(volumeDb);
                 }
                 clip.start();
             } catch (Exception e) {
@@ -23,14 +28,18 @@ public class SoundManager {
             }
         }).start();
     }
-    /**
-     * 播放背景音樂（會自動 loop）
-     */
+
+    // 播放背景音樂（會自動 loop）
     public static void playBackgroundMusic(String path, float volumeDb) {
         stopBackgroundMusic(); // 先停止舊的背景音樂
         new Thread(() -> {
             try {
-                AudioInputStream ais = AudioSystem.getAudioInputStream(new File(path));
+                InputStream audioSrc = SoundManager.class.getResourceAsStream(path);
+                if (audioSrc == null) {
+                    throw new IllegalArgumentException("Resource not found: /sound/" + path);
+                }
+                InputStream bufferedIn = new BufferedInputStream(audioSrc);
+                AudioInputStream ais = AudioSystem.getAudioInputStream(bufferedIn);
                 backgroundClip = AudioSystem.getClip();
                 backgroundClip.open(ais);
                 if (backgroundClip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
@@ -45,9 +54,7 @@ public class SoundManager {
         }).start();
     }
 
-    /**
-     * 停止背景音樂
-     */
+    // 停止背景音樂
     public static void stopBackgroundMusic() {
         if (backgroundClip != null && backgroundClip.isRunning()) {
             backgroundClip.stop();
@@ -55,25 +62,8 @@ public class SoundManager {
         }
     }
 
-    /**
-     * 播放一次性音效
-     */
+    // 播放一次性音效（預設音量）
     public static void playSoundEffect(String path) {
-        new Thread(() -> {
-            try {
-                AudioInputStream ais = AudioSystem.getAudioInputStream(new File(path));
-                Clip clip = AudioSystem.getClip();
-                clip.open(ais);
-                if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
-                    FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                    volumeControl.setValue(-10f); // 可視需求調整，單位為 dB
-                }
-
-                clip.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start(); // 開新執行緒，避免阻塞
+        playSoundEffect(path, -10f); // 預設音量
     }
-
 }
