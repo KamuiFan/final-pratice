@@ -16,7 +16,7 @@
 
 
 ## 報告影片連結
-[video](請把影片的URL貼在這裡謝謝) 
+[video](https://drive.google.com/file/d/1IVqUK6ZALy3aYMq19LfuBkhrvQYAoF61/view?usp=drive_link) 
 
 ## 遊戲操作說明
 滑鼠左右移動控制 Paddle，根據碰撞位置改變反彈角度，使 Ball 擊碎 Brick。
